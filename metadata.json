@@ -1,0 +1,5 @@
+{
+  "name": "Plant Pal: Disease Diagnosis",
+  "description": "An intelligent web application that helps users diagnose plant diseases by describing symptoms. It uses AI to identify potential issues and provides actionable remedies and prevention tips.",
+  "requestFramePermissions": []
+}
