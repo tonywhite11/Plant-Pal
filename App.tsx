@@ -8,8 +8,6 @@ import { diagnosePlant } from './services/geminiService';
 import type { DiagnosisReport } from './types';
 import { LeafIcon } from './components/IconComponents';
 
-type Theme = 'light' | 'dark';
-
 const plantTypes = [
   "Aloe Vera",
   "Apple Tree",
@@ -53,27 +51,6 @@ const App: React.FC = () => {
   const [diagnosis, setDiagnosis] = useState<DiagnosisReport | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [theme, setTheme] = useState<Theme>('light');
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-    setTheme(initialTheme);
-  }, []);
-
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
 
   const handleImageChange = useCallback((file: File | null) => {
     setPlantImage(file);
@@ -124,7 +101,7 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-green-50 dark:bg-gray-900 min-h-screen font-sans text-gray-800 dark:text-gray-200">
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header />
       <main className="container mx-auto p-4 md:p-8 max-w-4xl">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8">
           <SymptomInput
